@@ -1,4 +1,4 @@
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart'; // Cannot test because you cannot create DB in local...
 import 'package:path_provider/path_provider.dart';
 
 // File system
@@ -15,7 +15,8 @@ class NewsDBProvider {
   Database db;
 
   // Cannot use asynchronus logic in a contructor, so use init instead
-  init() async {
+  // There's no 'return' statement, use void.
+  void init() async {
     // PathProvder module. Works with mobile device directories. Returns a reference to a folder on the device.
     // dart:io = Directory documentsDirectory, a folder reference
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -52,7 +53,8 @@ class NewsDBProvider {
   }
 
   // Fetch
-  fetchItem(int id) async {
+  // If there's a 'return' statement, null can also be returned
+  Future<ItemModel> fetchItem(int id) async {
     // Query the DB
     // Getting back a list of maps (key, value, dynamic, etc.)
     final maps = await db.query(
@@ -79,7 +81,8 @@ class NewsDBProvider {
 
   // Async not required
   // Insert item into database. Item needs to be a converted into SQL compliant types.
-  addItem(ItemModel item) {
+  // Annotate: Future resolves with an int. See db.insert.
+  Future<int> addItem(ItemModel item) {
     return db.insert("Items", item.toMap());
   }
 }
