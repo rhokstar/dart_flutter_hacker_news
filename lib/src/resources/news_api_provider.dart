@@ -8,13 +8,17 @@ import 'dart:convert';
 // ItemModel
 import '../models/item_model.dart';
 
+// Wiring up abstract class Source
+import './repository.dart';
+
 import 'dart:async';
 
 // Keep the root private. Note: no trailing slash at the end.
 final _root = 'https://hacker-news.firebaseio.com/v0';
 
 // Reaches out to API and it's to endpoints
-class NewsAPIProvider {
+// Abstract class Source gets implemented here
+class NewsAPIProvider implements Source{
   // Create instance of Client class
   Client client = Client();
 

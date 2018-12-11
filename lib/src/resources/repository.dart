@@ -8,30 +8,57 @@ import 'news_db_provider.dart';
 import '../models/item_model.dart';
 
 class Repository {
-  // Create instance variables of DB and API providers. NewsDBProvider needs to init.
-  NewsDBProvider dbProvider = NewsDBProvider();
-  NewsAPIProvider apiProvider = NewsAPIProvider();
+  // Create instance variable for list of source objects
+  // Add any other data sources here
+  List<Source> sources = <Source>[
+    newsDBProvider, // make use of existing DB connection
+    NewsAPIProvider(),
+  ];
+
+  List<Cache> caches = <Cache>[
+    newsDBProvider // make use of existing DB connection
+  ];
 
   // Get top HN articles
-  // *Annotate your return types*
+  // * Annotate your return types *
+  // ToDo: Iterate over sources when dbprovider gets fetchTopids
   Future<List<int>> fetchTopIds() {
-    return apiProvider.fetchTopIds();
+    return sources[1].fetchTopIds();
   }
 
   // Get specific HN items
   Future<ItemModel> fetchItem(int id) async {
-    // Check to see if specific itemModel exists or null
-    // Using 'var' just incase it needs to be reassigned instead of using 'final'
-    var item = await dbProvider.fetchItem(id);
-    if (item != null) {
-      return item;
+    // For loop to iterate through list of sources...
+    ItemModel item;
+    Source source;
+
+    for (source in sources) {
+      // Check item for null or ItemModel
+      item = await source.fetchItem(id);
+      // Stop value is null
+      if (item != null) {
+        break;
+      }
     }
 
-    // Receive item from API. Gaurantees an item unless network error. Need to wait for this.
-    item = await apiProvider.fetchItem(id);
-    // Add to DB. No need to use 'await'
-    dbProvider.addItem(item);
+
+    for (var cache in caches) {
+      cache.addItem(item);
+    }
 
     return item;
   }
+}
+
+//
+abstract class Source {
+  // Qualifiers
+  Future<List<int>> fetchTopIds();
+  Future<ItemModel> fetchItem(int id);
+}
+
+//
+abstract class Cache {
+  // Because sqflite is typed Future<int>, annotate here too
+  Future<int> addItem(ItemModel item);
 }

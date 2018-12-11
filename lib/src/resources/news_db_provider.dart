@@ -8,12 +8,28 @@ import 'package:path/path.dart';
 import 'dart:async';
 import '../models/item_model.dart';
 
+import './repository.dart';
+
 // Init
-class NewsDBProvider {
+// Abstract class Source and Cache implements here
+class NewsDBProvider implements Source, Cache {
   // Create instance variable for database from sqflite
   // Link to DB
   Database db;
 
+  // Call DB Init
+  NewsDBProvider() {
+    init();
+  }
+
+  // You can implement an abstract class qualifier but herein lies the problem is the functionality of the function 
+  @override
+    Future<List<int>> fetchTopIds() {
+      // TODO: implement fetchTopIds
+      return null;
+    }
+
+  // Init DB here
   // Cannot use asynchronus logic in a contructor, so use init instead
   // There's no 'return' statement, use void.
   void init() async {
@@ -86,3 +102,6 @@ class NewsDBProvider {
     return db.insert("Items", item.toMap());
   }
 }
+
+// Make one connection to DB available.
+final newsDBProvider = NewsDBProvider();
