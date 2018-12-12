@@ -5,6 +5,8 @@ import '../blocs/stories_provider.dart';
 
 import '../widgets/news_list_tile.dart';
 
+import '../widgets/refresh.dart';
+
 class NewsList extends StatelessWidget {
   Widget build(context) {
     // Give widget access to bloc
@@ -38,18 +40,21 @@ class NewsList extends StatelessWidget {
           );
         }
 
-        // renders view
-        return ListView.builder(
-          // get list of ids
-          itemCount: snapshot.data.length,
-          // return list of ids and print out
-          itemBuilder: (context, int index) {
-            bloc.fetchItem(snapshot.data[index]);
-            
-            return NewsListTile(
-              itemId: snapshot.data[index]
-            );
-          },
+        // Render the list
+
+        // Refresh new data
+        return Refresh(
+          child: ListView.builder(
+            // get list of ids
+            itemCount: snapshot.data.length,
+            // return list of ids and print out
+            itemBuilder: (context, int index) {
+              bloc.fetchItem(snapshot.data[index]);
+
+              // Render the data
+              return NewsListTile(itemId: snapshot.data[index]);
+            },
+          ),
         );
       },
     );

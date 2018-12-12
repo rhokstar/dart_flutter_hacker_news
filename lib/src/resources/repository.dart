@@ -51,17 +51,26 @@ class Repository {
 
     return item;
   }
+
+  // Clear the cache by calling clear() in news_db_provider
+  clearCache() async {
+    for(var cache in caches) {
+      // Wait for caches to be clear, returns a Future after completion
+      // Added to abstract Cache
+      await cache.clear();
+    }
+  }
 }
 
-//
 abstract class Source {
   // Qualifiers
   Future<List<int>> fetchTopIds();
   Future<ItemModel> fetchItem(int id);
 }
 
-//
 abstract class Cache {
   // Because sqflite is typed Future<int>, annotate here too
   Future<int> addItem(ItemModel item);
+  // Required for Refresh => clearCache
+  Future<int> clear();
 }

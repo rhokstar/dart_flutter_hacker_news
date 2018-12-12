@@ -53,13 +53,10 @@ class NewsListTile extends StatelessWidget {
       children: [
         ListTile(
           title: Text(item.title),
-          subtitle: Text(
-              '${item.score} points'), // coerce to string my string interpolation
+          subtitle:
+              Text('${item.score} points'), // coerce to string interpolation
           trailing: Column(
-            children: [
-              Icon(Icons.comment),
-              Text('${item.descendants}')
-            ],
+            children: [Icon(Icons.comment), Text('${item.descendants}')],
           ),
         ),
         Divider(

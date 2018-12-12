@@ -16,6 +16,11 @@ class StoriesBloc {
   // Add repository into StreamController
   final _topIds = PublishSubject<List<int>>();
 
+  // Method is available to refresh.dart to call 
+  clearCache() {
+    return _repository.clearCache();
+  }
+
   // SteamController equivalent in RxDart. All widgets listen to this stream for most recent events data.
   final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
 

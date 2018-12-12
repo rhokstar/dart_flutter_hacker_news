@@ -104,6 +104,13 @@ class NewsDBProvider implements Source, Cache {
     return db.insert("Items", item.toMap(),
         conflictAlgorithm: ConflictAlgorithm.ignore);
   }
+
+  // Clear the DB
+  // Repository will call this method
+  Future<int> clear() {
+    // Returns a Future
+    return db.delete("Items");
+  }
 }
 
 // Make one connection to DB available.
