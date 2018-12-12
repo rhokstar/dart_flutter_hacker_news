@@ -40,7 +40,7 @@ class StoriesBloc {
   // Constructor function is invoked
   StoriesBloc() {
     // Takes output event of stream to a target destination. Joins all pieces of the data stream.
-    // ItemsFetcher => Transformer => ItemsOuput
+    // _itemsFetcher => _itemsTransformer => _itemsItemsOuput
     _itemsFetcher.stream.transform(_itemsTransformer()).pipe(_itemsOutput);
   }
 
@@ -58,7 +58,7 @@ class StoriesBloc {
       // Adds ID into cache
       (Map<int, Future<ItemModel>> cache, int id, index) {
         print(index);
-        // Establish new key in the map and assign Future with ItemModel
+        // Establish new key in the map 'cache[id]' and assign Future with ItemModel
         cache[id] = _repository.fetchItem(id);
         // Return newly updated cache map
         return cache;

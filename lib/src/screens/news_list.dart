@@ -41,7 +41,6 @@ class NewsList extends StatelessWidget {
         }
 
         // Render the list
-
         // Refresh new data
         return Refresh(
           child: ListView.builder(

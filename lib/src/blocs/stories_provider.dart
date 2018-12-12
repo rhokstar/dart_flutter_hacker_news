@@ -1,4 +1,5 @@
 // Makes stories bloc available in the widget tree
+// Provider code tends to be very similar.
 
 import 'package:flutter/material.dart';
 import './stories_bloc.dart';

@@ -40,7 +40,8 @@ class NewsListTile extends StatelessWidget {
             }
 
             // If there's data, then output the article
-            return buildTile(itemSnapShot.data);
+            // Include context for Navigator
+            return buildTile(context, itemSnapShot.data);
           },
         );
       },
@@ -48,10 +49,15 @@ class NewsListTile extends StatelessWidget {
   }
 
   // Helper Methods
-  Widget buildTile(ItemModel item) {
+  Widget buildTile(BuildContext context, ItemModel item) {
     return Column(
       children: [
         ListTile(
+          onTap: () {
+            // print('${item.id}');
+            // Take context and ID and push to Navigator to NewsDetails screen
+            Navigator.pushNamed(context, '/${item.id}');
+          },
           title: Text(item.title),
           subtitle:
               Text('${item.score} points'), // coerce to string interpolation
