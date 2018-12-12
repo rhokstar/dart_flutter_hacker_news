@@ -37,6 +37,7 @@ class NewsDBProvider implements Source, Cache {
     // dart:io = Directory documentsDirectory, a folder reference
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     // Constructs the file path i.e. /directory/items.db
+    // If getting null values, rename the DB name
     final path = join(documentsDirectory.path, "items.db");
     db = await openDatabase(
       path, // Create a DB on device or just open the DB if it exists.
