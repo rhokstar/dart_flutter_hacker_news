@@ -24,14 +24,14 @@ class ItemModel {
   // From API: Extract data from JSON
   ItemModel.fromJson(Map<String, dynamic> parsedJson)
       : id = parsedJson['id'],
-        deleted = parsedJson['deleted'],
+        deleted = parsedJson['deleted'] ?? false,
         type = parsedJson['type'],
         by = parsedJson['by'],
         time = parsedJson['time'],
-        text = parsedJson['text'],
-        dead = parsedJson['dead'],
+        text = parsedJson['text'] ?? '', // If null, no text
+        dead = parsedJson['dead'] ?? false, // If null, default to false
         parent = parsedJson['parent'],
-        kids = parsedJson['kids'],
+        kids = parsedJson['kids'] ?? [], // If null, empty
         url = parsedJson['url'],
         score = parsedJson['score'],
         title = parsedJson['title'],

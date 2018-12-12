@@ -22,12 +22,12 @@ class NewsDBProvider implements Source, Cache {
     init();
   }
 
-  // You can implement an abstract class qualifier but herein lies the problem is the functionality of the function 
+  // You can implement an abstract class qualifier but herein lies the problem is the functionality of the function
   @override
-    Future<List<int>> fetchTopIds() {
-      // TODO: implement fetchTopIds
-      return null;
-    }
+  Future<List<int>> fetchTopIds() {
+    // TODO: implement fetchTopIds
+    return null;
+  }
 
   // Init DB here
   // Cannot use asynchronus logic in a contructor, so use init instead
@@ -85,7 +85,7 @@ class NewsDBProvider implements Source, Cache {
     );
 
     // Look at maps and check if there's at least 1 record
-    if(maps.length > 0) {
+    if (maps.length > 0) {
       // Take first map out of the list of maps
       // Will also convert specific values to conform with ItemModel
       return ItemModel.fromDb(maps.first);
@@ -99,7 +99,7 @@ class NewsDBProvider implements Source, Cache {
   // Insert item into database. Item needs to be a converted into SQL compliant types.
   // Annotate: Future resolves with an int. See db.insert.
   Future<int> addItem(ItemModel item) {
-    return db.insert("Items", item.toMap());
+    return db.insert("Items", item.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 }
 

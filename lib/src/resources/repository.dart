@@ -30,7 +30,8 @@ class Repository {
   Future<ItemModel> fetchItem(int id) async {
     // For loop to iterate through list of sources...
     ItemModel item;
-    Source source;
+    // Source source;
+    var source;
 
     for (source in sources) {
       // Check item for null or ItemModel
@@ -41,9 +42,11 @@ class Repository {
       }
     }
 
-
+    // Back up item to cache
     for (var cache in caches) {
-      cache.addItem(item);
+      if (cache != source) {
+        cache.addItem(item);
+      }
     }
 
     return item;

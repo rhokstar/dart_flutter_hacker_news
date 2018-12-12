@@ -23,6 +23,7 @@ dependencies:
   sqflite: any
   path_provider: ^0.4.1
   http: any
+  rxdart: ^0.19.0
 
 dev_dependencies:
   flutter_test:
