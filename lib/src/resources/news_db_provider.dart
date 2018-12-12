@@ -99,7 +99,9 @@ class NewsDBProvider implements Source, Cache {
   // Insert item into database. Item needs to be a converted into SQL compliant types.
   // Annotate: Future resolves with an int. See db.insert.
   Future<int> addItem(ItemModel item) {
-    return db.insert("Items", item.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore);
+    // If same ID exists, ignore writing to DB
+    return db.insert("Items", item.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 }
 
