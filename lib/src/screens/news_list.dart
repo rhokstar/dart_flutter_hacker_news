@@ -9,11 +9,8 @@ import '../widgets/refresh.dart';
 
 class NewsList extends StatelessWidget {
   Widget build(context) {
-    // Give widget access to bloc
+    // Give widget access to storiesBloc
     final bloc = StoriesProvider.of(context);
-
-    // This is temporary. Bad!
-    bloc.fetchTopIds();
 
     return Scaffold(
       appBar: AppBar(

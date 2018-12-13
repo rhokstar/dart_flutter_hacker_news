@@ -26,7 +26,7 @@ class ItemModel {
       : id = parsedJson['id'],
         deleted = parsedJson['deleted'] ?? false,
         type = parsedJson['type'],
-        by = parsedJson['by'],
+        by = parsedJson['by'] ?? '', // Some comments get deleted, return no text
         time = parsedJson['time'],
         text = parsedJson['text'] ?? '', // If null, no text
         dead = parsedJson['dead'] ?? false, // If null, default to false
